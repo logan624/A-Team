@@ -42,11 +42,11 @@ CONSTRAINT `FK_item_sellerID` FOREIGN KEY (`sellerID`) REFERENCES `user` (`usern
  CREATE TABLE `bid`
  (
   `bidID`          serial NOT NULL ,
-  `bid_price`      float NOT NULL ,
+  `bidPrice`      float NOT NULL ,
   `itemID`         BIGINT UNSIGNED NOT NULL,
   `username`       varchar(20) NOT NULL ,
-  `bid-start-date` date NOT NULL ,
-  `bid-end-date`   date NULL ,
+  `bidStartDate` date NOT NULL ,
+  `bidEndDate`   date NULL ,
 
  PRIMARY KEY (`bidID`),
  KEY `KY_bid_username` (`username`),
@@ -61,7 +61,7 @@ CREATE TABLE `transaction`
   `transactionID`        serial NOT NULL ,
   `processingIsComplete` binary NOT NULL ,
   `bidID`                BIGINT UNSIGNED NOT NULL ,
-  `transact-date`        date NOT NULL ,
+  `transactDate`        date NOT NULL ,
 
  PRIMARY KEY (`transactionID`),
  KEY `KY_transaction_bidID` (`bidID`),
@@ -134,7 +134,7 @@ VALUES
 ("Red High Heels","Johnloveslife","Women's Clothing","Shoes","Moderately Used","12.99"),
 ("Vans High-Tops","NotCartel","Men's Clothing","Shoes","New","59.99");
 
-INSERT INTO bid (bid_price, itemID, username, `bid-start-date`, `bid-end-date`)
+INSERT INTO bid (bidPrice, itemID, username, `bidStartDate`, `bidEndDate`)
 VALUES
 ('37.00', '1','Jeremy_wade31', '2022-11-01', '2022-12-01' ),
 ('80.00', '4', 'Johnloveslife', '2022-10-20', '2022-11-20' ),
@@ -143,7 +143,7 @@ VALUES
 ('130.00', '7', 'Hailey123456', '2022-12-01', '2022-12-18'),
 ('22.25', '9', 'Jimmy_wade31', '2022-11-13', '2022-12-05');
 
- INSERT INTO transaction (processingISComplete, bidID, `transact-date`)
+ INSERT INTO transaction (processingISComplete, bidID, `transactDate`)
 VALUES
 ('1','1', '2022-12-01' ),
 ('1','2', '2022-11-20' ),
