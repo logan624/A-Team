@@ -1,8 +1,13 @@
 import item from "../model/itemModel.js";
 
+//  NOTE: Jeremy_wade31 is the default user in this
+//        application
 export const getAllItems = async (req, res) => {
     try {
-        const items = await item.findAll();
+        // const items = await item.findAll();
+        const items = await item.findAll({
+            where: { sellerID: "Jeremy_wade31"}
+          });
         res.json(items);
     } catch (error) {
         res.json({message: error.message});
