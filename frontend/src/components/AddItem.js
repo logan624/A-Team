@@ -2,7 +2,13 @@ import {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Form from 'react-bootstrap/Form';
 
 const AddItem = () => {
     const [item_name, setItemName] = useState('');
@@ -12,7 +18,6 @@ const AddItem = () => {
     const [buy_now_price, setBuyNowPrice] = useState('');
     const navigate = useNavigate();
     const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'});
-
     const saveItem = async () => {
         await axios.post('http://localhost:5000/items', {
             name: item_name,
@@ -22,10 +27,37 @@ const AddItem = () => {
             buyNowPrice: buy_now_price,
             sellerID: "Jeremy_wade31"
         });
-        navigate('/');
+        navigate('/List');
+
+        return true;
     }
     return (
         <main>
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+                <Container>
+                    <Navbar>
+                        <span class="logo">
+                            <a href="/Home">
+                                <img src={require('../logo_bbay.png')}  height="33" width="120" alt="B-Bay Logo"/>
+                            </a>
+                        </span>
+                    </Navbar>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        <NavDropdown title="Item Registration" id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="List">Item List</NavDropdown.Item>
+                        <NavDropdown.Item href="add">
+                            Add Item
+                        </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <Nav>
+                        <Nav.Link>User Account Management</Nav.Link>
+                    </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
             <form onSubmit={handleSubmit(saveItem)} className={"col-md-6 mx-auto"}>
                 <h1 className={"text-center"}>Add Item</h1>
                 <hr/>
@@ -36,36 +68,126 @@ const AddItem = () => {
                        onChange={(e) => setItemName(e.target.value)} autoFocus
                 />
                 {errors.category?.type === 'required' && <small>The item name is required</small>}
-                <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Select Category
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item></Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
+                {/* <label htmlFor={"catagory"}>Catagory:</label>
+                <Form.Select aria-label="catagory">
+                    <option>Select a Catagory</option> */}
 
-                    </Dropdown.Menu>
-                </Dropdown>
-                {/* <input type={"text"} className={"form-control"} id={"category"} name={"category"}
+
+                    
+                <Form.Group controlId="formBasicSelect">
+                        <Form.Label>Catagory:</Form.Label>
+                        <Form.Control
+                        as="select"
+                        value={category}
+                        onChange={e => {
+                            console.log("e.target.value", e.target.value);
+                            setCategory(e.target.value);
+                        }}
+                        >
+                    <option>Select a Catagory</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Men's Clothing">Men's Clothing</option>
+                    <option value="Women's Clothing">Women's Clothing</option>
+                    <option value="Home Improvement">Home Improvement</option>
+                    <option value="Hobbies">Hobbies</option>
+                    </Form.Control>
+                    </Form.Group>
+                    {/* <div className="App container">
+      
+      <DropdownButton
+      alignRight
+      title="Catagory"
+      id="dropdown-menu-align-right"
+      onSelect={handleSelect}
+        >
+              <Dropdown.Item eventKey="Men's Clothing">Men's Clothing</Dropdown.Item>
+              <Dropdown.Item eventKey="Womens's Clothing">Womens's Clothing</Dropdown.Item>
+              <Dropdown.Item eventKey="option-3">option 3</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+      </DropdownButton>
+      <h4>You selected {category}</h4>
+    </div> */}
+                {/* { <input type={"text"} className={"form-control"} id={"category"} name={"category"}
                        {...register('category', {required: true})} placeholder={""}
                        value={category} onChange={(e) => setCategory(e.target.value)}
-                /> */}
-                {errors.category?.type === 'required' && <small>The category is required.</small>}
-                <label htmlFor={"subcategory"}>Subcategory:</label>
+                /> }
+                {errors.category?.type === 'required' && <small>The category is required.</small>} */}
+                {/* <label htmlFor={"subcategory"}>Subcategory:</label>
+                <Form.Select aria-label="subcatagory">
+                    <option>Select a Subcategory</option> */}
+
+                <Form.Group controlId="formBasicSelect">
+                        <Form.Label>Subcategory:</Form.Label>
+                        <Form.Control
+                        as="select"
+                        value={subcategory}
+                        onChange={e => {
+                            console.log("e.target.value", e.target.value);
+                            setSubcategory(e.target.value);
+                        }}
+                        >
+                    <option>Select a Subcategory</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Audio">Audio</option>
+                    <option value="TV">TV</option>
+                    <option value="Computers">Computers</option>
+                    <option value="Cameras">Cameras</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Outerwear">Outerwear</option>
+                    <option value="Pool Wear">Pool Wear</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Sporting Goods">Sporting Goods</option>
+                    <option value="Board Games">Board Games</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Kitchen">Kitchen</option>
+                    <option value="Bath">Bath</option>
+                    <option value="Smart Home">Smart Home</option>
+                    </Form.Control>
+                    </Form.Group>
+
+                {/* <label htmlFor={"subcategory"}>Subcategory:</label>
                 <input type={"text"} className={"form-control"} id={"subcategory"} name={"subcategory"}
                        {...register('subcategory', {required: true})} placeholder={""}
                        value={subcategory} onChange={(e) => setSubcategory(e.target.value)}
                 />
-                {errors.use?.type === 'required' && <small>The subcategory is required</small>}
-                <label htmlFor={"use"}>Use:</label>
-                <input type={"text"} className={"form-control"} id={"use"} name={"use"}
+                {errors.use?.type === 'required' && <small>The subcategory is required</small>} */}
+
+                <Form.Group controlId="formBasicSelect">
+                        <Form.Label>Use:</Form.Label>
+                        <Form.Control
+                        as="select"
+                        value={use}
+                        onChange={e => {
+                            console.log("e.target.value", e.target.value);
+                            setUse(e.target.value);
+                        }}
+                        >
+                        <option>Select a Usage</option>    
+                        <option value="New">New</option>
+                        <option value="Lightly Used">Lightly Used</option>
+                        <option value="Moderatly Used">Moderatly Used</option>
+                        <option value="Very Used">Very Used</option>
+                        </Form.Control>
+                    </Form.Group>
+
+
+
+                {/* <label htmlFor={"use"}>Use:</label>
+                <Form.Select aria-label="use">
+                    <option>Select a Usage</option>
+                    <option value="New">New</option>
+                    <option value="Lightly Used">Lightly Used</option>
+                    <option value="Moderatly Used">Moderatly Used</option>
+                    <option value="Very Used">Very Used</option>
+                </Form.Select> */}
+                
+
+                {/* <input type={"text"} className={"form-control"} id={"use"} name={"use"}
                        {...register('use', {required: true})} placeholder={"Ex: SD"}
                        value={use} onChange={(e) => setUse(e.target.value)}
-                />
+                /> */}
                 <label htmlFor={"buy_now_price"}>Buy Now Price:</label>
                 <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
                        {...register('buy_now_price', {required: true})} placeholder={"Ex: $65.00"}
@@ -73,8 +195,8 @@ const AddItem = () => {
                 />
                 {errors.buy_now_price?.type === 'required' && <small>The buy now price is required</small>}
                 <div className={"text-center"}>
-                    <button className={"btn btn-secondary me-2"}>Add Item</button>
-                    <Link to={"/"} className={"btn btn-secondary"}>Cancel</Link>
+                    <button  className={"btn btn-secondary me-2"}>Add Item</button>
+                    <Link to={"/List"} className={"btn btn-secondary"}>Cancel</Link>
                 </div>
             </form>
         </main>
