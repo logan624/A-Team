@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 
 const AddItem = () => {
@@ -37,7 +35,7 @@ const AddItem = () => {
                 <Container>
                     <Navbar>
                         <span class="logo">
-                            <a href="/Home">
+                            <a href="/">
                                 <img src={require('../logo_bbay.png')}  height="33" width="120" alt="B-Bay Logo"/>
                             </a>
                         </span>
@@ -68,12 +66,7 @@ const AddItem = () => {
                        onChange={(e) => setItemName(e.target.value)} autoFocus
                 />
                 {errors.category?.type === 'required' && <small>The item name is required</small>}
-                {/* <label htmlFor={"catagory"}>Catagory:</label>
-                <Form.Select aria-label="catagory">
-                    <option>Select a Catagory</option> */}
-
-
-                    
+     
                 <Form.Group controlId="formBasicSelect">
                         <Form.Label>Catagory:</Form.Label>
                         <Form.Control
@@ -92,32 +85,10 @@ const AddItem = () => {
                     <option value="Hobbies">Hobbies</option>
                     </Form.Control>
                     </Form.Group>
-                    {/* <div className="App container">
-      
-      <DropdownButton
-      alignRight
-      title="Catagory"
-      id="dropdown-menu-align-right"
-      onSelect={handleSelect}
-        >
-              <Dropdown.Item eventKey="Men's Clothing">Men's Clothing</Dropdown.Item>
-              <Dropdown.Item eventKey="Womens's Clothing">Womens's Clothing</Dropdown.Item>
-              <Dropdown.Item eventKey="option-3">option 3</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-      </DropdownButton>
-      <h4>You selected {category}</h4>
-    </div> */}
-                {/* { <input type={"text"} className={"form-control"} id={"category"} name={"category"}
-                       {...register('category', {required: true})} placeholder={""}
-                       value={category} onChange={(e) => setCategory(e.target.value)}
-                /> }
-                {errors.category?.type === 'required' && <small>The category is required.</small>} */}
-                {/* <label htmlFor={"subcategory"}>Subcategory:</label>
-                <Form.Select aria-label="subcatagory">
-                    <option>Select a Subcategory</option> */}
+
 
                 <Form.Group controlId="formBasicSelect">
+
                         <Form.Label>Subcategory:</Form.Label>
                         <Form.Control
                         as="select"
@@ -147,12 +118,6 @@ const AddItem = () => {
                     </Form.Control>
                     </Form.Group>
 
-                {/* <label htmlFor={"subcategory"}>Subcategory:</label>
-                <input type={"text"} className={"form-control"} id={"subcategory"} name={"subcategory"}
-                       {...register('subcategory', {required: true})} placeholder={""}
-                       value={subcategory} onChange={(e) => setSubcategory(e.target.value)}
-                />
-                {errors.use?.type === 'required' && <small>The subcategory is required</small>} */}
 
                 <Form.Group controlId="formBasicSelect">
                         <Form.Label>Use:</Form.Label>
@@ -172,22 +137,6 @@ const AddItem = () => {
                         </Form.Control>
                     </Form.Group>
 
-
-
-                {/* <label htmlFor={"use"}>Use:</label>
-                <Form.Select aria-label="use">
-                    <option>Select a Usage</option>
-                    <option value="New">New</option>
-                    <option value="Lightly Used">Lightly Used</option>
-                    <option value="Moderatly Used">Moderatly Used</option>
-                    <option value="Very Used">Very Used</option>
-                </Form.Select> */}
-                
-
-                {/* <input type={"text"} className={"form-control"} id={"use"} name={"use"}
-                       {...register('use', {required: true})} placeholder={"Ex: SD"}
-                       value={use} onChange={(e) => setUse(e.target.value)}
-                /> */}
                 <label htmlFor={"buy_now_price"}>Buy Now Price:</label>
                 <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
                        {...register('buy_now_price', {required: true})} placeholder={"Ex: $65.00"}
@@ -195,7 +144,19 @@ const AddItem = () => {
                 />
                 {errors.buy_now_price?.type === 'required' && <small>The buy now price is required</small>}
                 <div className={"text-center"}>
+<<<<<<< HEAD
+<<<<<<< HEAD
                     <button  className={"btn btn-secondary me-2"}>Add Item</button>
+=======
+                    <a>
+                        <button onClick={() => saveItem()} className={"btn btn-secondary me-2"}>Add Item</button>
+                    </a>
+>>>>>>> d87a8ba (Alex's changes)
+=======
+                   
+                        <button className={"btn btn-secondary me-2"}>Add Item</button>
+                    
+>>>>>>> d431eca (Alex's changes)
                     <Link to={"/List"} className={"btn btn-secondary"}>Cancel</Link>
                 </div>
             </form>

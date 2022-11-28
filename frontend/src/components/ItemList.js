@@ -25,7 +25,7 @@ const ItemList = () => {
                 <Container>
                     <Navbar>
                         <span class="logo">
-                            <a href="/Home">
+                            <a href="/">
                                 <img src={require('../logo_bbay.png')}  height="33" width="120" alt="B-Bay Logo"/>
                             </a>
                         </span>
