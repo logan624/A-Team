@@ -4,7 +4,6 @@ import item from "../model/itemModel.js";
 //        application
 export const getAllItems = async (req, res) => {
     try {
-        // const items = await item.findAll();
         const items = await item.findAll({
             where: { sellerID: "Jeremy_wade31"}
           });
