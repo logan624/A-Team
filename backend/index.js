@@ -4,6 +4,7 @@ import itemRoutes from "./routes/itemRoutes.js";
 import bidRoutes from "./routes/bidRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import categoricalRoutes from "./routes/categoricalRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -21,8 +22,6 @@ app.use('/items', itemRoutes);
 app.use('/bids', bidRoutes);
 app.use('/transactions', transactionRoutes);
 app.use('/users', userRoutes);
+app.use('/categorical', categoricalRoutes);
 
 app.listen(5000, () => console.log("Database server running on port 5000!"));
-
-
-
