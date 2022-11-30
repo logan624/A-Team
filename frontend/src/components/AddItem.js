@@ -144,19 +144,7 @@ const AddItem = () => {
                 />
                 {errors.buy_now_price?.type === 'required' && <small>The buy now price is required</small>}
                 <div className={"text-center"}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    <button  className={"btn btn-secondary me-2"}>Add Item</button>
-=======
-                    <a>
-                        <button onClick={() => saveItem()} className={"btn btn-secondary me-2"}>Add Item</button>
-                    </a>
->>>>>>> d87a8ba (Alex's changes)
-=======
-                   
                         <button className={"btn btn-secondary me-2"}>Add Item</button>
-                    
->>>>>>> d431eca (Alex's changes)
                     <Link to={"/List"} className={"btn btn-secondary"}>Cancel</Link>
                 </div>
             </form>
