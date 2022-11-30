@@ -5,6 +5,9 @@ import bidRoutes from "./routes/bidRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import categoricalRoutes from "./routes/categoricalRoutes.js";
+import similarRoutes from "./routes/similarRoutes.js";
+import topItemRoutes from "./routes/topItemRoutes.js";
+import profitRoutes from "./routes/profitRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -23,5 +26,8 @@ app.use('/bids', bidRoutes);
 app.use('/transactions', transactionRoutes);
 app.use('/users', userRoutes);
 app.use('/categorical', categoricalRoutes);
+app.use('/similar', similarRoutes);
+app.use('/items', topItemRoutes);
+app.use('/profit', profitRoutes)
 
 app.listen(5000, () => console.log("Database server running on port 5000!"));

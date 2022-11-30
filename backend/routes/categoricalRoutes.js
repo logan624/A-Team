@@ -1,20 +1,12 @@
 import express from "express";
 
-import {getCategoricalRecs} from "../controller/categoricalRecs.js";
+import {getTopCategories, getTopCategoriesPerUser, getCategoricalRecs} from "../controller/categoricalRecs.js";
 
 const router = express.Router();
 
-router.get('/top_categories', getCategoricalRecs);
+router.get('/top_categories', getTopCategories);
+router.get('/user_top_categories', getTopCategoriesPerUser);
+router.get('/user_categorical_recs', getCategoricalRecs);
+
 
 export default router;
-
-// import express from "express";
-
-// import {getAllUsers, getUserById} from "../controller/users.js";
-
-// const router = express.Router();
-
-// router.get('/', getAllUsers);
-// router.get('/:username', getUserById);
-
-// export default router;
