@@ -1,8 +1,13 @@
-import {top_categories, top_user_categories} from "../model/categoriesModel.js";
+import {top_items_per_user} from "../model/categoriesModel.js";
 
 export const getTopCategories = async (req, res) => {
     try {
-        res.json(top_categories[0]);
+        users_items = top_items_per_user.findAll({
+            where: { username: "Jeremy_wade31"}
+        });
+        
+
+        res.json(top_items_per_user[0], top_items_per_user[1], top_items_per_user[2]);
     } catch (error) {
         res.json({message: error.message});
     }

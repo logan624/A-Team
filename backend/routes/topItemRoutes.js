@@ -1,6 +1,6 @@
 import express from "express";
 
-import {getTopItemRecs} from "../controller/topItemRecs";
+import {getTopItemRecs} from "../controller/topItemRecs.js";
 
 const router = express.Router();
 
