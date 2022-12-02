@@ -423,7 +423,7 @@ VALUES
  ('2', '1', 'There were holes in the shorts I bought.'),
  ('5', '1', 'Great Product!');
 
--- INSERT VIEWS NEEDED FOR CATEGORICAL RECOMMENDATIONS
+-- INSERT TABLES/VIEWS NEEDED FOR CATEGORICAL RECOMMENDATIONS
 
 CREATE VIEW IF NOT EXISTS top_user_categories AS SELECT
     item.category,
@@ -481,4 +481,47 @@ ORDER BY
 DESC
     ;
 
--- INSERT VIEWS NEEDED FOR SIMILAR SHOPPER RECOMMENDATIONS
+-- INSERT TABLES/VIEWS NEEDED FOR TOP ITEM RECOMMENDATIONS
+
+CREATE TABLE top_item_recommendations AS
+SELECT item.name, item.category, COUNT(item.itemID) AS NumBought 
+FROM transaction,bid,item 
+WHERE transaction.bidID = bid.bidID AND
+bid.itemID = item.itemID
+GROUP BY item.name,item.category 
+ORDER BY COUNT(item.itemID) DESC limit 3;
+
+-- INSERT TABLES/VIEWS NEEDED FOR SIMILAR SHOPPER RECOMMENDATIONS
+
+CREATE TEMPORARY TABLE IF NOT EXISTS tempTransactions AS 
+  SELECT distinct item.name, transactDate, user.username
+  FROM transaction, bid, item, user
+  WHERE
+      transaction.bidID = bid.bidID AND
+      bid.itemID = item.itemID
+  ORDER BY 
+      transaction.transactDate DESC
+  LIMIT 5;
+
+-- #Get 5 OTHER users that purchased same items and put in temp table tempSimilarUsersItems 
+CREATE TEMPORARY TABLE IF NOT EXISTS tempSimilarUsersItems AS 
+  SELECT bid.username, item.name
+  FROM transaction, bid, item, tempTransactions
+  WHERE
+      transaction.bidID = bid.bidID AND
+      bid.itemID = item.itemID AND
+      item.name = tempTransactions.name AND
+      bid.username <> tempTransactions.username
+  LIMIT 5;
+
+--   #Get top items that other users have bought
+CREATE TABLE similar_shopper_recommendations AS
+  SELECT tempTransactions.username, item.name, COUNT(item.name) as numSold
+  FROM tempSimilarUsersItems, transaction, bid, item, tempTransactions
+  WHERE
+      bid.username = tempSimilarUsersItems.username AND
+      transaction.bidID = bid.bidID AND
+  item.itemID = bid.itemId AND
+      item.name <> tempTransactions.name
+   GROUP BY tempTransactions.username, item.name
+   ORDER BY numSold DESC  #want most popular items;

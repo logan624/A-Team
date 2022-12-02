@@ -1,9 +1,10 @@
 import express from "express";
 
-import {getSimilarRecs} from "../controller/similarRecs.js";
+import {getAllSimilarRecs, getSimilarRecsPerUser} from "../controller/similarRecs.js";
 
 const router = express.Router();
 
-router.get('/user_similar_recs', getSimilarRecs);
+router.get('/recommendations', getAllSimilarRecs);
+router.get('/recommendations/:username', getSimilarRecsPerUser);
 
 export default router;
