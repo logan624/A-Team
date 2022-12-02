@@ -27,7 +27,6 @@ app.use('/transactions', transactionRoutes);
 app.use('/users', userRoutes);
 app.use('/categorical', categoricalRoutes);
 app.use('/similar', similarRoutes);
-app.use('/items', topItemRoutes);
-// app.use('/profit', profitRoutes)
+app.use('/', topItemRoutes);
 
 app.listen(5000, () => console.log("Database server running on port 5000!"));
