@@ -1,4 +1,12 @@
 import db from "../config/database.js";
+import {Sequelize} from "sequelize";
 
-export const top_items_per_user = await db.query(
-    "SELECT item.category, COUNT(item.itemID) AS itemsBought FROM transaction,bid,item WHERE transaction.bidID = bid.bidID AND bid.itemID = item.itemID GROUP BY item.category;");
+const {DataTypes} = Sequelize;
+
+export const categorical_recommendations = db.define("categorical_recommendations", {
+    username:                  {type: DataTypes.STRING,
+                                        primaryKey: true},
+    category:                  {type: DataTypes.STRING},
+    name:                      {type: DataTypes.STRING},
+    numSold:                   {type: DataTypes.INTEGER}
+}, {freezeTableName: true});

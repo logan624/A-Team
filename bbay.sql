@@ -422,3 +422,63 @@ VALUES
  ('2', '1', ' Waste of Money, do not buy.'),
  ('2', '1', 'There were holes in the shorts I bought.'),
  ('5', '1', 'Great Product!');
+
+-- INSERT VIEWS NEEDED FOR CATEGORICAL RECOMMENDATIONS
+
+CREATE VIEW IF NOT EXISTS top_user_categories AS SELECT
+    item.category,
+    bid.username,
+    COUNT(item.itemID) AS NumBought
+FROM
+    `transaction`,
+    bid,
+    item
+WHERE
+    `transaction`.bidID = bid.bidID AND bid.itemID = item.itemID
+GROUP BY
+    item.category,
+    bid.username
+ORDER BY
+    COUNT(item.itemID)
+DESC
+    ;
+CREATE VIEW IF NOT EXISTS top_items_per_category AS SELECT
+    item.category,
+    item.name,
+    COUNT(`transaction`.transactionID) AS numSold
+FROM TRANSACTION
+    ,
+    bid,
+    item
+WHERE TRANSACTION
+    .bidID = bid.bidID AND bid.itemID = item.itemID
+GROUP BY
+    item.category,
+    item.name
+ORDER BY
+    COUNT(`transaction`.transactionID)
+DESC
+    ;
+CREATE TABLE
+categorical_recommendations AS
+SELECT
+    top_user_categories.username,
+    top_user_categories.category,
+    top_items_per_category.name,
+    top_items_per_category.numSold
+FROM
+    top_items_per_category,
+    top_user_categories
+WHERE
+    top_user_categories.category = top_items_per_category.category
+GROUP BY
+    top_items_per_category.numSold,
+    top_user_categories.username,
+    top_user_categories.category,
+    top_items_per_category.name
+ORDER BY
+    top_items_per_category.numSold
+DESC
+    ;
+
+-- INSERT VIEWS NEEDED FOR SIMILAR SHOPPER RECOMMENDATIONS
