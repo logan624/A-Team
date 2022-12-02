@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect} from "react"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
@@ -15,6 +15,27 @@ const ItemList = () => {
     const deleteItem = async (id) => {
         await axios.delete(`http://localhost:5000/items/${id}`);
         await getItems();
+    }
+    const validateInputs = (item_id) =>{
+        let confirmation = window.confirm("Are you sure you would like to remove this item?");
+
+        if(confirmation)
+        {
+            let password = window.prompt("Please Enter your Password");
+
+            if (password === "password")
+            {
+                deleteItem(item_id);
+                window.alert("Item Successfully Deleted");
+            }
+            else{
+                window.alert("Password Incorrect");
+            }
+        }
+        else
+        {
+
+        }
     }
     useEffect(() => {
         getItems().then(m => console.log("Successfully retrieved the items!"));
@@ -69,7 +90,8 @@ const ItemList = () => {
                         <td>{item.sellerID}</td>
                         <td>{item.buyNowPrice}</td>
                         <td>
-                            <button onClick={() => deleteItem(item.itemID)} className={"btn btn-secondary"}
+                      
+                            <button onClick={() => validateInputs(item.itemID)} className={"btn btn-secondary"}
                                     aria-label={`Delete ${item.name}`}>Delete</button>
                         </td>
                     </tr>
