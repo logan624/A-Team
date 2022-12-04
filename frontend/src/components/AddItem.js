@@ -183,7 +183,7 @@ const AddItem = () => {
 
                 {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
                 {errors.buy_now_price?.type === 'min'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
-                {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
+                {/* {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>} */}
                 {/* {errors.buy_now_price?.value === '0' && <small style= {{color: "red"}}>Choose one of the other options</small>} */}
 
                 <div className={"text-center"}>
