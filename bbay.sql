@@ -508,18 +508,6 @@ CREATE TEMPORARY TABLE IF NOT EXISTS tempSimilarUsersItems AS
       bid.username <> tempTransactions.username
   LIMIT 5;
 
---   #Get top items that other users have bought
--- CREATE TABLE similar_shopper_recommendations AS
---   SELECT tempTransactions.username, item.name, item.category, item.use, item.buyNowPrice, item.sellerID, COUNT(item.name) as numSold
---   FROM tempSimilarUsersItems, transaction, bid, item, tempTransactions
---   WHERE
---       bid.username = tempSimilarUsersItems.username AND
---       transaction.bidID = bid.bidID AND
---   item.itemID = bid.itemId AND
---       item.name <> tempTransactions.name
---    GROUP BY tempTransactions.username, item.name
---    ORDER BY numSold DESC  #want most popular items;
-
 CREATE TABLE similar_shopper_recommendations AS
   SELECT tempTransactions.username, item.name, item.sellerID, item.use, item.buyNowPrice, item.category, COUNT(item.name) as numSold
   FROM tempSimilarUsersItems, transaction, bid, item, tempTransactions
