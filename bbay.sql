@@ -454,16 +454,17 @@ DESC
     ;
 CREATE TABLE
 categorical_recommendations AS
-SELECT
+SELECT DISTINCT
     top_user_categories.username,
     top_user_categories.category,
     top_items_per_category.name,
-    top_items_per_category.numSold
+    top_items_per_category.numSold,
+    item.sellerID, item.buyNowPrice, item.use
 FROM
     top_items_per_category,
-    top_user_categories
+    top_user_categories, item
 WHERE
-    top_user_categories.category = top_items_per_category.category
+    top_user_categories.category = top_items_per_category.category AND top_items_per_category.name = item.name
 GROUP BY
     top_items_per_category.numSold,
     top_user_categories.username,
@@ -477,7 +478,7 @@ DESC
 -- INSERT TABLES/VIEWS NEEDED FOR TOP ITEM RECOMMENDATIONS
 
 CREATE TABLE top_item_recommendations AS
-SELECT item.name, item.category, COUNT(item.itemID) AS NumBought 
+SELECT item.name, item.category, item.use, item.buyNowPrice, item.sellerID, COUNT(item.itemID) AS NumBought
 FROM transaction,bid,item 
 WHERE transaction.bidID = bid.bidID AND
 bid.itemID = item.itemID
@@ -509,7 +510,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS tempSimilarUsersItems AS
 
 --   #Get top items that other users have bought
 CREATE TABLE similar_shopper_recommendations AS
-  SELECT tempTransactions.username, item.name, COUNT(item.name) as numSold
+  SELECT tempTransactions.username, item.name, item.category, item.use, item.buyNowPrice, item.sellerID, COUNT(item.name) as numSold
   FROM tempSimilarUsersItems, transaction, bid, item, tempTransactions
   WHERE
       bid.username = tempSimilarUsersItems.username AND

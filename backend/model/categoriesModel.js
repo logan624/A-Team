@@ -8,5 +8,8 @@ export const categorical_recommendations = db.define("categorical_recommendation
                                         primaryKey: true},
     category:                  {type: DataTypes.STRING},
     name:                      {type: DataTypes.STRING},
-    numSold:                   {type: DataTypes.INTEGER}
+    numSold:                   {type: DataTypes.INTEGER},
+    sellerID:                  {type: DataTypes.STRING},
+    use:                       {type: DataTypes.STRING},
+    buyNowPrice:               {type: DataTypes.FLOAT}
 }, {freezeTableName: true});
