@@ -96,7 +96,7 @@ const HomePage = () => {
             </Navbar>
             <h1 style={{marginLeft:"17%", marginRight:"17%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
                 Based off your top category, we thought you might like:
-            </h1>;
+            </h1>
             <div class = "row" style={{ marginLeft:"5.5em"}}>
                 {categorical_recs.map((categorical_rec) => (
                     <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
@@ -113,7 +113,7 @@ const HomePage = () => {
             </div>
                 <h1 style={{marginLeft:"33%", marginRight:"32%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
                     People Like You Also Bought:
-                </h1>;
+                </h1>
                 <div class = "row" style={{marginLeft:"5.5em"}}>
                 {similar_recs.map((similar_rec) => (
                     <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
@@ -130,7 +130,7 @@ const HomePage = () => {
             </div>
                 <h1 style={{marginLeft:"20%", marginRight:"20%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
                     Join the Bandwagon! <small>Shop the hottest items on B-Bay!</small>
-                </h1>;
+                </h1>
                 <div class ="row" style={{marginLeft:"5.5em", paddingBottom:"2em"}}>
                     {top_item_recs.map((top_item_rec) => (
                         <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>

@@ -10,7 +10,7 @@
      <main>
          <h1>
          <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-                 <Container>``
+                 <Container>
                      <Navbar>
                          <span class="logo">
                              <a href="/">
