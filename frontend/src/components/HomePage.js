@@ -94,45 +94,57 @@ const HomePage = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {categorical_recs.map((categorical_rec) => (
-                <MDBCard>
-                <MDBCardImage src='' position='top' alt='...' />
-                <MDBCardBody>
-                    <MDBCardTitle>{categorical_rec.name}</MDBCardTitle>
-                    <MDBCardText>
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn>Button</MDBBtn>
-                </MDBCardBody>
-                </MDBCard>
-            ))}
-
-            {similar_recs.map((similar_rec) => (
-                <MDBCard>
-                <MDBCardImage src='' position='top' alt='...' />
-                <MDBCardBody>
-                    <MDBCardTitle>{similar_rec.name}</MDBCardTitle>
-                    <MDBCardText>
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn>Button</MDBBtn>
-                </MDBCardBody>
-                </MDBCard>
-            ))}
-
-            
-            {top_item_recs.map((top_item_rec) => (
-                <MDBCard>
-                <MDBCardImage src='' position='top' alt='...' />
-                <MDBCardBody>
-                    <MDBCardTitle>{top_item_rec.name}</MDBCardTitle>
-                    <MDBCardText>
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn>Button</MDBBtn>
-                </MDBCardBody>
-                </MDBCard>
-            ))}
+            <h1 style={{marginLeft:"17%", marginRight:"17%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
+                Based off your top category, we thought you might like:
+            </h1>;
+            <div class = "row" style={{ marginLeft:"5.5em"}}>
+                {categorical_recs.map((categorical_rec) => (
+                    <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
+                    <MDBCardImage src='' position='top' alt='...' />
+                    <MDBCardBody>
+                        <MDBCardTitle>{categorical_rec.name}</MDBCardTitle>
+                        <MDBCardText>
+                        Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </MDBCardText>
+                        <MDBBtn>Button</MDBBtn>
+                    </MDBCardBody>
+                    </MDBCard>
+                ))}
+            </div>
+                <h1 style={{marginLeft:"33%", marginRight:"32%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
+                    People Like You Also Bought:
+                </h1>;
+                <div class = "row" style={{marginLeft:"5.5em"}}>
+                {similar_recs.map((similar_rec) => (
+                    <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
+                    <MDBCardImage src='' position='top' alt='...' />
+                    <MDBCardBody>
+                        <MDBCardTitle>{similar_rec.name}</MDBCardTitle>
+                        <MDBCardText>
+                        Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </MDBCardText>
+                        <MDBBtn>Button</MDBBtn>
+                    </MDBCardBody>
+                    </MDBCard>
+                ))}
+            </div>
+                <h1 style={{marginLeft:"20%", marginRight:"20%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>
+                    Join the Bandwagon! <small>Shop the hottest items on B-Bay!</small>
+                </h1>;
+                <div class ="row" style={{marginLeft:"5.5em", paddingBottom:"2em"}}>
+                    {top_item_recs.map((top_item_rec) => (
+                        <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
+                            <MDBCardImage src='' position='top' alt='...' />
+                            <MDBCardBody>
+                                <MDBCardTitle>{top_item_rec.name}</MDBCardTitle>
+                                <MDBCardText>
+                                Some quick example text to build on the card title and make up the bulk of the card's content.
+                                </MDBCardText>
+                                <MDBBtn>Button</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    ))}
+            </div>
         </main>
     )
 }
