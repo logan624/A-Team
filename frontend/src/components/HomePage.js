@@ -20,8 +20,6 @@ const HomePage = () => {
         const response = await axios.get(`http://localhost:5000/categorical/recommendations/Jeremy_wade31`);
         setCategoricalRecs(response.data);
     }
-
-    // const categorical_recs = getCategoricalRecs();
     
     // const [similarRecs, setSimilarRecs] = useState([]);
     // const getSimilarRecs = async () => {
