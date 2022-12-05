@@ -29,6 +29,29 @@ const AddItem = () => {
 
         return true;
     }
+
+    const validatePassword = () => {
+        let confirmation = window.confirm("Are you sure you would like to be redirected to the Profit Estimation page?");
+
+        if (confirmation)
+        {
+            let password = window.prompt("Please Enter your Password");
+
+            if (password === "password")
+            {
+                navigate('/Profits');
+
+            }
+            else {
+                window.alert("Password Incorrect");
+            }
+        }
+        else
+        {
+
+        }
+    }
+
     return (
         <main>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -52,6 +75,9 @@ const AddItem = () => {
                     </Nav>
                     <Nav>
                         <Nav.Link>User Account Management</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

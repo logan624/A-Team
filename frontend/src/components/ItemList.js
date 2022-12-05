@@ -1,12 +1,14 @@
 import {useState, useEffect} from "react"; 
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+
 const ItemList = () => {
+    const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const getItems = async () => {
         const response = await axios.get(`http://localhost:5000/items`);
@@ -37,6 +39,28 @@ const ItemList = () => {
 
         }
     }
+    const validatePassword = () => {
+        let confirmation = window.confirm("Are you sure you would like to be redirected to the Profit Estimation page?");
+
+        if (confirmation)
+        {
+            let password = window.prompt("Please Enter your Password");
+
+            if (password === "password")
+            {
+                navigate('/Profits');
+
+            }
+            else {
+                window.alert("Password Incorrect");
+            }
+        }
+        else
+        {
+
+        }
+    }
+
     useEffect(() => {
         getItems().then(m => console.log("Successfully retrieved the items!"));
     }, []);
@@ -64,6 +88,9 @@ const ItemList = () => {
                     <Nav>
                         <Nav.Link>User Account Management</Nav.Link>
                     </Nav>
+                    <Nav>
+                    <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
+                    </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -88,9 +115,9 @@ const ItemList = () => {
                         <td>{item.subcategory}</td>
                         <td>{item.use}</td>
                         <td>{item.sellerID}</td>
-                        <td>{item.buyNowPrice}</td>
+                        <td>${item.buyNowPrice}</td>
                         <td>
-                      
+
                             <button onClick={() => validateInputs(item.itemID)} className={"btn btn-secondary"}
                                     aria-label={`Delete ${item.name}`}>Delete</button>
                         </td>
