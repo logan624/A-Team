@@ -3,7 +3,8 @@ import {categorical_recommendations} from "../model/categoriesModel.js";
 export const getCategoricalRecsPerUser = async (req, res) => {
     try {
         const user_specific_recs = await categorical_recommendations.findAll({
-            where: { username: req.params.username }
+            where: { username: req.params.username },
+            limit: 3
           });
         res.json(user_specific_recs);
     } catch (error) {

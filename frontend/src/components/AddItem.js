@@ -29,20 +29,19 @@ const AddItem = () => {
 
         return true;
     }
+    const validatePassword = () =>{
+        let confirmation = window.confirm("Are You Sure You'd Like to Go to Profit Estimation?");
 
-    const validatePassword = () => {
-        let confirmation = window.confirm("Are you sure you would like to be redirected to the Profit Estimation page?");
-
-        if (confirmation)
+        if(confirmation)
         {
             let password = window.prompt("Please Enter your Password");
 
             if (password === "password")
             {
                 navigate('/Profits');
-
+               
             }
-            else {
+            else{
                 window.alert("Password Incorrect");
             }
         }
@@ -51,7 +50,6 @@ const AddItem = () => {
 
         }
     }
-
     return (
         <main>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -77,33 +75,41 @@ const AddItem = () => {
                         <Nav.Link>User Account Management</Nav.Link>
                     </Nav>
                     <Nav>
-                        <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
+                    <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
             <form onSubmit={handleSubmit(saveItem)} className={"col-md-6 mx-auto"}>
+            {/* <Form.Item
+            rules = {[{  max:10, message: "length should be less then 10 letters!"}]}/>
+            <Input placeholder="Username"/>
+            <Form.Item/> */}
                 <h1 className={"text-center"}>Add Item</h1>
                 <hr/>
                 <label htmlFor={"item_name"}>Item Name:</label>
                 <input type={"text"} className={"form-control"} id={"item_name"} name={"item_name"}
-                       {...register('item_name', {required: true})} placeholder={"Nike Air Force One's"}
+                       {
+                        //here is where i think i need to fix the character input
+                        ...register('item_name', {required: true, minLength: 3, maxLength: 30, })} placeholder={"Nike Air Force One's"}
                        value={item_name}
                        onChange={(e) => setItemName(e.target.value)} autoFocus
                 />
-                {errors.category?.type === 'required' && <small>The item name is required</small>}
-     
+                    {errors.item_name?.type === 'required' && <small style= {{color: "red"}}> Item Name is Required</small>}
+                    {errors.item_name?.type === 'minLength' && <small style= {{color: "red"}}> Item Name must be at Least 3 Characters </small>}
+                    {errors.item_name?.type === 'maxLength' && <small style= {{color: "red"}}> Item Name must be Less than 30 Characters</small>}
                 <Form.Group controlId="formBasicSelect">
-                        <Form.Label>Catagory:</Form.Label>
+                        <Form.Label>Category(Recommended):</Form.Label>
                         <Form.Control
+                        // <input type = {"category_name"} className = {"form-control"} id={'category_name'} name = {"category_name"}/>
                         as="select"
-                        value={category}
+                        value={category}    
                         onChange={e => {
                             console.log("e.target.value", e.target.value);
                             setCategory(e.target.value);
                         }}
                         >
-                    <option>Select a Catagory</option>
+                    <option>Select a Category</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Men's Clothing">Men's Clothing</option>
                     <option value="Women's Clothing">Women's Clothing</option>
@@ -111,11 +117,13 @@ const AddItem = () => {
                     <option value="Hobbies">Hobbies</option>
                     </Form.Control>
                     </Form.Group>
+                    
+                    {/* {errors.category.value === "Select a Category" && <small style= {{color: "red"}}>Choose one of the other options</small>} */}
 
 
                 <Form.Group controlId="formBasicSelect">
 
-                        <Form.Label>Subcategory:</Form.Label>
+                        <Form.Label>Subcategory(Recommended):</Form.Label>
                         <Form.Control
                         as="select"
                         value={subcategory}
@@ -124,7 +132,7 @@ const AddItem = () => {
                             setSubcategory(e.target.value);
                         }}
                         >
-                    <option>Select a Subcategory</option>
+                    <option>Select a Subcategory </option>
                     <option value="Gaming">Gaming</option>
                     <option value="Audio">Audio</option>
                     <option value="TV">TV</option>
@@ -155,20 +163,31 @@ const AddItem = () => {
                             setUse(e.target.value);
                         }}
                         >
-                        <option>Select a Usage</option>    
-                        <option value="New">New</option>
+                        {/* <option>Select a Usage</option>     */}
+                        <option value="New">New (Default)</option>
                         <option value="Lightly Used">Lightly Used</option>
                         <option value="Moderatly Used">Moderatly Used</option>
                         <option value="Very Used">Very Used</option>
+                        if(value.length === 0)
+                        {
+                            console.log("We made it")
+                        }
                         </Form.Control>
                     </Form.Group>
 
                 <label htmlFor={"buy_now_price"}>Buy Now Price:</label>
                 <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
-                       {...register('buy_now_price', {required: true})} placeholder={"Ex: $65.00"}
+                       {...register('buy_now_price', {required: true, min: 0, validate: true})} placeholder={"Ex: 65.00"}
                        value={buy_now_price} onChange={(e) => setBuyNowPrice(e.target.value)}
                 />
-                {errors.buy_now_price?.type === 'required' && <small>The buy now price is required</small>}
+
+                {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
+                {errors.buy_now_price?.type === 'min'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
+                {/* {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>} */}
+                {/* <javascript>
+                    if(containsAnyLetters('abcdeffghijklmnopqrstuvwxyz'))
+                        {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}               
+                </javascript> */}
                 <div className={"text-center"}>
                         <button className={"btn btn-secondary me-2"}>Add Item</button>
                     <Link to={"/List"} className={"btn btn-secondary"}>Cancel</Link>

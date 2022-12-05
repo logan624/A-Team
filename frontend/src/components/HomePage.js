@@ -20,13 +20,13 @@ const HomePage = () => {
     const navigate = useNavigate();
     const [categorical_recs, setCategoricalRecs] = useState([]);
     const getCategoricalRecs = async () => {
-        const response = await axios.get(`http://localhost:5000/categorical/recommendations/Jeremy_wade31`);
+        const response = await axios.get(`http://localhost:5000/categorical/recommendations/SarahWolfie`);
         setCategoricalRecs(response.data);
     }
     
     const [similar_recs, setSimilarRecs] = useState([]);
     const getSimilarRecs = async () => {
-        const response_two = await axios.get(`http://localhost:5000/similar/recommendations/jeremy_wade31`);
+        const response_two = await axios.get(`http://localhost:5000/similar/recommendations/SarahWolfie`);
         setSimilarRecs(response_two.data);
     }
 
@@ -100,13 +100,13 @@ const HomePage = () => {
             <div class = "row" style={{ marginLeft:"5.5em"}}>
                 {categorical_recs.map((categorical_rec) => (
                     <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
-                    <MDBCardImage src='' position='top' alt='...' />
                     <MDBCardBody>
-                        <MDBCardTitle>{categorical_rec.name}</MDBCardTitle>
-                        <MDBCardText>
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </MDBCardText>
-                        <MDBBtn>Button</MDBBtn>
+                        <MDBCardTitle>Name: {categorical_rec.name}</MDBCardTitle>
+                        <MDBCardText>Seller: {categorical_rec.sellerID}</MDBCardText>
+                        <MDBCardText>Use: {categorical_rec.use}</MDBCardText>
+                        <MDBCardText>Category: {categorical_rec.category}</MDBCardText>
+                        <MDBCardText>Price: {categorical_rec.buyNowPrice}</MDBCardText>
+                        <MDBBtn>View Item</MDBBtn>
                     </MDBCardBody>
                     </MDBCard>
                 ))}
@@ -117,13 +117,13 @@ const HomePage = () => {
                 <div class = "row" style={{marginLeft:"5.5em"}}>
                 {similar_recs.map((similar_rec) => (
                     <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
-                    <MDBCardImage src='' position='top' alt='...' />
                     <MDBCardBody>
-                        <MDBCardTitle>{similar_rec.name}</MDBCardTitle>
-                        <MDBCardText>
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </MDBCardText>
-                        <MDBBtn>Button</MDBBtn>
+                        <MDBCardTitle>Name: {similar_rec.name}</MDBCardTitle>
+                        <MDBCardText>Seller: {similar_rec.sellerID}</MDBCardText>
+                        <MDBCardText>Use: {similar_rec.use}</MDBCardText>
+                        <MDBCardText>Category: {similar_rec.category}</MDBCardText>
+                        <MDBCardText>Price: {similar_rec.buyNowPrice}</MDBCardText>
+                        <MDBBtn>View Item</MDBBtn>
                     </MDBCardBody>
                     </MDBCard>
                 ))}
@@ -134,13 +134,13 @@ const HomePage = () => {
                 <div class ="row" style={{marginLeft:"5.5em", paddingBottom:"2em"}}>
                     {top_item_recs.map((top_item_rec) => (
                         <MDBCard style={{ width: "21rem", borderRadius:'10px', marginRight: ".75em", marginLeft: "1em"}}>
-                            <MDBCardImage src='' position='top' alt='...' />
                             <MDBCardBody>
-                                <MDBCardTitle>{top_item_rec.name}</MDBCardTitle>
-                                <MDBCardText>
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                                </MDBCardText>
-                                <MDBBtn>Button</MDBBtn>
+                                <MDBCardTitle>Name: {top_item_rec.name}</MDBCardTitle>
+                                <MDBCardText>Seller: {top_item_rec.sellerID}</MDBCardText>
+                                <MDBCardText>Use: {top_item_rec.use}</MDBCardText>
+                                <MDBCardText>Category: {top_item_rec.category}</MDBCardText>
+                                <MDBCardText>Price: {top_item_rec.buyNowPrice}</MDBCardText>
+                                <MDBBtn>View Item</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     ))}
