@@ -164,7 +164,7 @@ const AddItem = () => {
                         }}
                         >
                         {/* <option>Select a Usage</option>     */}
-                        <option value="New">New</option>
+                        <option value="New">New (Default)</option>
                         <option value="Lightly Used">Lightly Used</option>
                         <option value="Moderatly Used">Moderatly Used</option>
                         <option value="Very Used">Very Used</option>
@@ -184,8 +184,10 @@ const AddItem = () => {
                 {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
                 {errors.buy_now_price?.type === 'min'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
                 {/* {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>} */}
-                {/* {errors.buy_now_price?.value === '0' && <small style= {{color: "red"}}>Choose one of the other options</small>} */}
-
+                {/* <javascript>
+                    if(containsAnyLetters('abcdeffghijklmnopqrstuvwxyz'))
+                        {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}               
+                </javascript> */}
                 <div className={"text-center"}>
                         <button className={"btn btn-secondary me-2"}>Add Item</button>
                     <Link to={"/List"} className={"btn btn-secondary"}>Cancel</Link>
