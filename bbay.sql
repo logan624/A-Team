@@ -418,62 +418,31 @@ VALUES
 
 -- INSERT TABLES/VIEWS NEEDED FOR CATEGORICAL RECOMMENDATIONS
 
-CREATE VIEW IF NOT EXISTS top_user_categories AS SELECT
-    item.category,
-    bid.username,
-    COUNT(item.itemID) AS NumBought
-FROM
-    `transaction`,
-    bid,
-    item
-WHERE
-    `transaction`.bidID = bid.bidID AND bid.itemID = item.itemID
-GROUP BY
-    item.category,
-    bid.username
-ORDER BY
-    COUNT(item.itemID)
-DESC
-    ;
-CREATE VIEW IF NOT EXISTS top_items_per_category AS SELECT
-    item.category,
-    item.name,
-    COUNT(`transaction`.transactionID) AS numSold
-FROM TRANSACTION
-    ,
-    bid,
-    item
-WHERE TRANSACTION
-    .bidID = bid.bidID AND bid.itemID = item.itemID
-GROUP BY
-    item.category,
-    item.name
-ORDER BY
-    COUNT(`transaction`.transactionID)
-DESC
-    ;
-CREATE TABLE
-categorical_recommendations AS
+CREATE VIEW IF NOT EXISTS top_user_categories AS
+SELECT item.category, bid.username, COUNT(item.itemID) AS NumBought
+FROM `transaction`, bid, item
+WHERE `transaction`.bidID = bid.bidID AND bid.itemID = item.itemID
+GROUP BY item.category, bid.username
+ORDER BY COUNT(item.itemID)
+DESC;
+CREATE VIEW IF NOT EXISTS top_items_per_category AS 
+SELECT item.category, item.name, COUNT(`transaction`.transactionID) AS numSold
+FROM TRANSACTION, bid, item
+WHERE TRANSACTION .bidID = bid.bidID AND bid.itemID = item.itemID
+GROUP BY item.category, item.name
+ORDER BY COUNT(`transaction`.transactionID) DESC;
+
+CREATE TABLE categorical_recommendations AS
 SELECT DISTINCT
     top_user_categories.username,
     top_user_categories.category,
     top_items_per_category.name,
     top_items_per_category.numSold,
     item.sellerID, item.buyNowPrice, item.use
-FROM
-    top_items_per_category,
-    top_user_categories, item
-WHERE
-    top_user_categories.category = top_items_per_category.category AND top_items_per_category.name = item.name
-GROUP BY
-    top_items_per_category.numSold,
-    top_user_categories.username,
-    top_user_categories.category,
-    top_items_per_category.name
-ORDER BY
-    top_items_per_category.numSold
-DESC
-    ;
+FROM top_items_per_category, top_user_categories, item
+WHERE top_user_categories.category = top_items_per_category.category AND top_items_per_category.name = item.name
+GROUP BY top_items_per_category.numSold, top_user_categories.username, top_user_categories.category, top_items_per_category.name
+ORDER BY top_items_per_category.numSold DESC;
 
 -- INSERT TABLES/VIEWS NEEDED FOR TOP ITEM RECOMMENDATIONS
 
