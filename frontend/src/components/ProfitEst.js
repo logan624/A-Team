@@ -24,6 +24,9 @@
                  </Container>
              </Navbar>
          </h1>
+         <div>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src={require('../output_10.png')}  height="700" width="1200" alt="B-Bay Logo"/>
+         </div>
      </main>
      )
   }
