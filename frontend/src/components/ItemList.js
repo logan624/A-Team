@@ -86,7 +86,7 @@ const ItemList = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link>User Account Management</Nav.Link>
+                        <Nav.Link href ="Login">User Account Management</Nav.Link>
                     </Nav>
                     <Nav>
                     <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>

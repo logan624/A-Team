@@ -3,6 +3,7 @@ import ItemList from "./components/ItemList";
 import AddItem from "./components/AddItem";
 import HomePage from "./components/HomePage";
 import ProfitEst from "./components/ProfitEst";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path={"/List"} element={<ItemList/>}/>
             <Route path={"/Add"} element={<AddItem/>}/>
             <Route path={"/Profits"} element={<ProfitEst/>}/>
+            <Route path={"/Login"} element={<LoginForm/>}/>
           </Routes>
         </div>
       </BrowserRouter>
