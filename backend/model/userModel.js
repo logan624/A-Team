@@ -19,4 +19,5 @@ const user = db.define("user", {
       accountEndDate:         {type: DataTypes.DATE}
 }, {freezeTableName: true});
 
+/
 export default user;
