@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -7,13 +7,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
+import { AuthContext } from "./AuthContext";
+
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
+  const { username: authUsername, setUsername: setAuthUsername } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,21 +35,19 @@ function LoginForm() {
       console.log(response);
       if (response.status === 200) {
         setError("");
-        setAuthenticated(true);
-        navigate('/');
+        //const data = response.data;
+        setAuthUsername(username); // set the user state variable
+        console.log('User set:',authUsername);
+       // navigate('/');
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
+      console.error(error);
       setError("Login failed. Please check your credentials.");
     }
   };
   
-
-  
-
-  
-
   const validatePassword = () => {
     let confirmation = window.confirm(
       "Are You Sure You'd Like to Go to Profit Estimation?"
@@ -128,10 +129,14 @@ function LoginForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
-
-        <button type="submit" className={'btn btn-primary'}>
+        <div className={"text-center"}>
+        <button type="submit" className={"btn btn-secondary me-2"}>
           Login
         </button>
+        <Link to={"/"} className={"btn btn-secondary"}>Cancel</Link>
+        {error && <div className="alert alert-danger">{error}</div>}
+
+        </div>
       </Form>
     </main>
   );

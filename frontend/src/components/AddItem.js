@@ -87,17 +87,23 @@ const AddItem = () => {
             <Form.Item/> */}
                 <h1 className={"text-center"}>Add Item</h1>
                 <hr/>
-                <label htmlFor={"item_name"}>Item Name:</label>
                 <input type={"text"} className={"form-control"} id={"item_name"} name={"item_name"}
-                       {
-                        //here is where i think i need to fix the character input
-                        ...register('item_name', {required: true, minLength: 3, maxLength: 30, })} placeholder={"Nike Air Force One's"}
-                       value={item_name}
-                       onChange={(e) => setItemName(e.target.value)} autoFocus
-                />
-                    {errors.item_name?.type === 'required' && <small style= {{color: "red"}}> Item Name is Required</small>}
-                    {errors.item_name?.type === 'minLength' && <small style= {{color: "red"}}> Item Name must be at Least 3 Characters </small>}
-                    {errors.item_name?.type === 'maxLength' && <small style= {{color: "red"}}> Item Name must be Less than 30 Characters</small>}
+                {...register('item_name', {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 30,
+                    pattern: /^[a-zA-Z0-9 ]+$/,
+                })}
+                placeholder={"Nike Air Force One's"}
+                value={item_name}
+                onChange={(e) => setItemName(e.target.value)}
+                autoFocus
+            />
+            {errors.item_name?.type === 'required' && <small style={{color: "red"}}> Item Name is Required</small>}
+            {errors.item_name?.type === 'minLength' && <small style={{color: "red"}}> Item Name must be at Least 3 Characters </small>}
+            {errors.item_name?.type === 'maxLength' && <small style={{color: "red"}}> Item Name must be Less than 30 Characters</small>}
+            {errors.item_name?.type === 'pattern' && <small style={{color: "red"}}> Item Name can only contain letters and numbers</small>}
+
                 <Form.Group controlId="formBasicSelect">
                         <Form.Label>Category(Recommended):</Form.Label>
                         <Form.Control
@@ -175,14 +181,27 @@ const AddItem = () => {
                         </Form.Control>
                     </Form.Group>
 
-                <label htmlFor={"buy_now_price"}>Buy Now Price:</label>
-                <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
-                       {...register('buy_now_price', {required: true, min: 0, validate: true})} placeholder={"Ex: 65.00"}
-                       value={buy_now_price} onChange={(e) => setBuyNowPrice(e.target.value)}
-                />
+                    <label htmlFor={"buy_now_price"}>Buy Now Price:</label>
+                    <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
+                        {...register('buy_now_price', {
+                            required: true,
+                            min: 0,
+                            max: 50000,
+                            pattern: {
+                                value: /^[0-9.]+$/,
+                                message: "Buy Now Price must be a number or a decimal (Ex: 65.00)"
+                            }
+                        })}
+                        placeholder={"Ex: 65.00"}
+                        value={buy_now_price}
+                        onChange={(e) => setBuyNowPrice(e.target.value)}
+                    />
 
-                {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
-                {errors.buy_now_price?.type === 'min'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
+                    {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
+                    {errors.buy_now_price?.type === 'min'&& <small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
+                    {errors.buy_now_price?.type === 'max'&& <small style= {{color: "red"}}> Buy Now Price must be less than $50,000</small>}
+                    {errors.buy_now_price?.type === 'pattern' && <small style={{ color: "red" }}>{errors.buy_now_price.message}</small>}
+
                 {/* {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>} */}
                 {/* <javascript>
                     if(containsAnyLetters('abcdeffghijklmnopqrstuvwxyz'))

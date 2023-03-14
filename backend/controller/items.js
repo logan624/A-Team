@@ -5,7 +5,7 @@ import item from "../model/itemModel.js";
 export const getAllItems = async (req, res) => {
     try {
         const items = await item.findAll({
-            where: { sellerID: "Jeremy_wade31"}
+           // where: { sellerID: "Jeremy_wade31"}
           });
         res.json(items);
     } catch (error) {

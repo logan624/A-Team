@@ -1,18 +1,29 @@
-import {useState, useEffect} from "react"; 
+import {useState, useEffect,useContext} from "react"; 
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { AuthContext } from "./AuthContext";
 
 
 const ItemList = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
+    const { auth } = useContext(AuthContext);
+    console.log("Username in ItemList:", auth);
     const getItems = async () => {
-        const response = await axios.get(`http://localhost:5000/items`);
-        setItems(response.data);
+        try {
+            const response = await axios.get(`http://localhost:5000/items`);
+            const { username } = auth;
+            const filteredItems = response.data.filter(item => item.username === username);
+            setItems(filteredItems);
+          } catch (error) {
+            console.error(error);
+          }
+        // const response = await axios.get(`http://localhost:5000/items?username=${username}`);
+        // setItems(response.data);
     }
     const deleteItem = async (id) => {
         await axios.delete(`http://localhost:5000/items/${id}`);
@@ -94,6 +105,7 @@ const ItemList = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+
             <table className={"table table-hover table-striped"} aria-label={"Items table"}>
                 <h1 style={{textAlign: "center"}}>Item List</h1>
                 <thead>
