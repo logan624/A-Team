@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import axios from "axios";
 // import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import AuthContext from "./AuthContext";
 
 import {
     MDBCard,
@@ -19,14 +20,16 @@ import {
 const HomePage = () => {
     const navigate = useNavigate();
     const [categorical_recs, setCategoricalRecs] = useState([]);
+    const { username: authUsername, password, authPassword } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const getCategoricalRecs = async () => {
-        const response = await axios.get(`http://localhost:5000/categorical/recommendations/SarahWolfie`);
+        const response = await axios.get(`http://localhost:5000/categorical/recommendations/${authUsername}`);
         setCategoricalRecs(response.data);
     }
     
     const [similar_recs, setSimilarRecs] = useState([]);
     const getSimilarRecs = async () => {
-        const response_two = await axios.get(`http://localhost:5000/similar/recommendations/SarahWolfie`);
+        const response_two = await axios.get(`http://localhost:5000/similar/recommendations/${authUsername}`);
         setSimilarRecs(response_two.data);
     }
 
@@ -86,12 +89,23 @@ const HomePage = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                    <Nav.Link href ="Login">User Account Management</Nav.Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Nav>
+                    <Nav className="me-auto">
+                        <NavDropdown title="User Account Management" id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="login">Login</NavDropdown.Item>
+                        <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
+                        <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                     <Nav>
                         <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
                     </Nav>
+                    <Nav>
+                    &nbsp;
+                    </Nav>
                     </Navbar.Collapse>
+                    <button onClick={logout}  className="btn btn-secondary">Logout</button>
                 </Container>
             </Navbar>
             <h1 style={{marginLeft:"17%", marginRight:"17%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>

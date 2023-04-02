@@ -1,22 +1,38 @@
-import React, { useState, useContext  } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
-import { AuthContext } from "./AuthContext";
-
-
+import AuthContext from "./AuthContext";
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
-  const { username: authUsername, setUsername: setAuthUsername } = useContext(AuthContext);
+  const { username: authUsername, setUsername: setAuthUsername, password: authPassword, setPassword: setAuthPassword } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log('Auth username changed:', authUsername);
+  }, [authUsername]);
+
+  useEffect(() => {
+    console.log('Auth password changed:', authPassword);
+  }, [authPassword]);
+
+  // Add this useEffect to check for a saved username in localStorage
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
+    if (savedUsername && savedPassword) {
+      setAuthUsername(savedUsername);
+      setAuthPassword(savedPassword);
+    }
+  }, [setAuthUsername, setAuthPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,34 +51,18 @@ function LoginForm() {
       console.log(response);
       if (response.status === 200) {
         setError("");
-        //const data = response.data;
-        setAuthUsername(username); // set the user state variable
-        console.log('User set:',authUsername);
-       // navigate('/');
+        setAuthUsername(username);
+        setAuthPassword(password);
+        console.log("LoginForm.js authUsername:", authUsername);
+
+        const { from } = location.state || { from: { pathname: "/" } };
+        navigate(from.pathname);
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error(error);
       setError("Login failed. Please check your credentials.");
-    }
-  };
-  
-  const validatePassword = () => {
-    let confirmation = window.confirm(
-      "Are You Sure You'd Like to Go to Profit Estimation?"
-    );
-
-    if (confirmation) {
-      let password = window.prompt('Please Enter your Password');
-
-      if (password === 'password') {
-        navigate('/Profits');
-      } else {
-        window.alert('Password Incorrect');
-      }
-    } else {
-      // Do nothing
     }
   };
 
@@ -94,16 +94,15 @@ function LoginForm() {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link>User Account Management</Nav.Link>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Nav>
-            <Nav>
-              <button
-                onClick={() => validatePassword()}
-                className={'btn btn-secondary'}
-              >
-                Profit Estimation
-              </button>
+              <Nav className="me-auto">
+                <NavDropdown title="User Account Management" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="login">Login</NavDropdown.Item>
+                <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
+              </NavDropdown>
             </Nav>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -113,33 +112,35 @@ function LoginForm() {
         <Form.Group controlId="username">
           <Form.Label>Username:</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Enter username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </Form.Group>
+                    type="text"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                  />
+                </Form.Group>
+          
+                <Form.Group controlId="password">
+                  <Form.Label>Password:</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                </Form.Group>
+                <div className={"text-center"}>
+                  <button type="submit" className={"btn btn-secondary me-2"}>
+                    Login
+                  </button>
+                  <Link to={"/"} className={"btn btn-secondary"}>Cancel</Link>
+                  {error && <div className="alert alert-danger">{error}</div>}
+                </div>
+              </Form>
+            </main>
+          );
+          
+          }
+          
+          export default LoginForm;
+          
 
-        <Form.Group controlId="password">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Form.Group>
-        <div className={"text-center"}>
-        <button type="submit" className={"btn btn-secondary me-2"}>
-          Login
-        </button>
-        <Link to={"/"} className={"btn btn-secondary"}>Cancel</Link>
-        {error && <div className="alert alert-danger">{error}</div>}
-
-        </div>
-      </Form>
-    </main>
-  );
-}
-
-export default LoginForm;

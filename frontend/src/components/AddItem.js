@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useContext} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
+import AuthContext from "./AuthContext";
 
 const AddItem = () => {
     const [item_name, setItemName] = useState('');
@@ -15,6 +16,8 @@ const AddItem = () => {
     const [use, setUse] = useState('');
     const [buy_now_price, setBuyNowPrice] = useState('');
     const navigate = useNavigate();
+    const { username, password : authPassword } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'});
     const saveItem = async () => {
         await axios.post('http://localhost:5000/items', {
@@ -23,7 +26,7 @@ const AddItem = () => {
             subcategory: subcategory,
             use: use,
             buyNowPrice: buy_now_price,
-            sellerID: "Jeremy_wade31"
+            sellerID: username
         });
         navigate('/List');
 
@@ -36,7 +39,7 @@ const AddItem = () => {
         {
             let password = window.prompt("Please Enter your Password");
 
-            if (password === "password")
+            if (password === authPassword)
             {
                 navigate('/Profits');
                
@@ -50,6 +53,7 @@ const AddItem = () => {
 
         }
     }
+
     return (
         <main>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -72,14 +76,28 @@ const AddItem = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                    <Nav.Link href ="Login">User Account Management</Nav.Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Nav>
+                    <Nav className="me-auto">
+                        <NavDropdown title="User Account Management" id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="login">Login</NavDropdown.Item>
+                        <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
+                        <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                     <Nav>
                     <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
                     </Nav>
+                    <Nav>
+                    &nbsp;
+                    </Nav>
                     </Navbar.Collapse>
+                    <button onClick={logout} className="btn btn-secondary">Logout</button>
+
                 </Container>
+                
             </Navbar>
+            
             <form onSubmit={handleSubmit(saveItem)} className={"col-md-6 mx-auto"}>
             {/* <Form.Item
             rules = {[{  max:10, message: "length should be less then 10 letters!"}]}/>
@@ -185,7 +203,7 @@ const AddItem = () => {
                     <input type={"text"} className={"form-control"} id={"buy_now_price"} name={"buy_now_price"}
                         {...register('buy_now_price', {
                             required: true,
-                            min: 0,
+                            min: 5,
                             max: 50000,
                             pattern: {
                                 value: /^[0-9.]+$/,
@@ -199,7 +217,7 @@ const AddItem = () => {
 
                     {errors.buy_now_price?.type === 'required' && <small style= {{color: "red"}}> Buy Now Price is Required</small>}
                     {errors.buy_now_price?.type === 'min'&& <small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>}
-                    {errors.buy_now_price?.type === 'max'&& <small style= {{color: "red"}}> Buy Now Price must be less than $50,000</small>}
+                    {errors.buy_now_price?.type === 'max'&& <small style= {{color: "red"}}> Buy Now Price must be $50,000 or less </small>}
                     {errors.buy_now_price?.type === 'pattern' && <small style={{ color: "red" }}>{errors.buy_now_price.message}</small>}
 
                 {/* {errors.buy_now_price?.type !== 'valueAsNumber'&& <small small style= {{color: "red"}}> Buy Now Price must be a Positive Number</small>} */}

@@ -5,25 +5,28 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { AuthContext } from "./AuthContext";
+import AuthContext  from "./AuthContext";
 
 
 const ItemList = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
-    const { auth } = useContext(AuthContext);
-    console.log("Username in ItemList:", auth);
+    const { username: authUsername, password: authPassword } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
+
+    
+
+    //console.log("Username in ItemList:", auth);
     const getItems = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/items`);
-            const { username } = auth;
-            const filteredItems = response.data.filter(item => item.username === username);
-            setItems(filteredItems);
-          } catch (error) {
-            console.error(error);
-          }
-        // const response = await axios.get(`http://localhost:5000/items?username=${username}`);
-        // setItems(response.data);
+        
+            //const response = await axios.get(`http://localhost:5000/items`);
+
+       const response = await axios.get(`http://localhost:5000/items?sellerID=${authUsername}`);
+       console.log("Items received by the frontend:", response.data);
+
+      setItems(Array.isArray(response.data) ? response.data : []);
+      //setItems(response.data);
+
     }
     const deleteItem = async (id) => {
         await axios.delete(`http://localhost:5000/items/${id}`);
@@ -36,7 +39,7 @@ const ItemList = () => {
         {
             let password = window.prompt("Please Enter your Password");
 
-            if (password === "password")
+            if (password === authPassword)
             {
                 deleteItem(item_id);
                 window.alert("Item Successfully Deleted");
@@ -57,7 +60,7 @@ const ItemList = () => {
         {
             let password = window.prompt("Please Enter your Password");
 
-            if (password === "password")
+            if (password === authPassword)
             {
                 navigate('/Profits');
 
@@ -72,7 +75,9 @@ const ItemList = () => {
         }
     }
 
+
     useEffect(() => {
+        
         getItems().then(m => console.log("Successfully retrieved the items!"));
     }, []);
     return (
@@ -80,7 +85,7 @@ const ItemList = () => {
               <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
                     <Navbar>
-                        <span class="logo">
+                    <span className="logo">
                             <a href="/">
                                 <img src={require('../logo_bbay.png')}  height="33" width="120" alt="B-Bay Logo"/>
                             </a>
@@ -97,17 +102,29 @@ const ItemList = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href ="Login">User Account Management</Nav.Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Nav>
+                    <Nav className="me-auto">
+                        <NavDropdown title="User Account Management" id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="login">Login</NavDropdown.Item>
+                        <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
+                        <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                     <Nav>
                     <button onClick={() => validatePassword()} className={"btn btn-secondary"}>Profit Estimation</button>
                     </Nav>
+                    <Nav>
+                    &nbsp;
+                    </Nav>
                     </Navbar.Collapse>
+                    <button onClick={logout}  className="btn btn-secondary">Logout</button>
+
                 </Container>
             </Navbar>
-
+            <h1 style={{textAlign: "center"}}>Item List</h1>
             <table className={"table table-hover table-striped"} aria-label={"Items table"}>
-                <h1 style={{textAlign: "center"}}>Item List</h1>
+                
                 <thead>
                 </thead>
                 <tbody>
@@ -140,6 +157,7 @@ const ItemList = () => {
             <div className={"text-center"}>
                 <Link to={'/add'} className={"btn btn-secondary"}>Add Item</Link>
             </div>
+            <p>Logged in user: {authUsername}</p>
         </main>
     )
 }
