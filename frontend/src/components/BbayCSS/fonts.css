@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'FreeLine';
+    src: url('./FreeLine_font/FreeLine.woff2') format('woff2'),
+         url('./FreeLine_font/FreeLine.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .freeline-font {
+    font-family: 'FreeLine', sans-serif;
+  }
+  @font-face {
+    font-family: 'Abril Fatface';
+    src: url('./abril-fatface/AbrilFatface-Regular.otf') format('opentype');
+  }
+  .header-font {
+    font-family: 'Abril Fatface', serif;
+  }
+
+  .color1 {
+    color: #E53238;
+  }
+  
+  .color2 {
+    color: #0064D2;
+  }
+  
+  .color3 {
+    color: #F5AF02;
+  }
+  
+  .color4 {
+    color: #86B817;
+  }
+  
+  
+  

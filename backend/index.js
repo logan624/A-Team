@@ -8,6 +8,7 @@ import categoricalRoutes from "./routes/categoricalRoutes.js";
 import similarRoutes from "./routes/similarRoutes.js";
 import topItemRoutes from "./routes/topItemRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+import viewHistoryRoutes from './routes/viewHistoryRoutes.js';
 import cors from "cors";
 
 const app = express();
@@ -29,5 +30,6 @@ app.use('/categorical', categoricalRoutes);
 app.use('/similar', similarRoutes);
 app.use('/profile', profileRoutes);
 app.use('/', topItemRoutes);
+app.use('/api', viewHistoryRoutes);
 
 app.listen(5000, () => console.log("Database server running on port 5000!"));

@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import AuthContext  from "./AuthContext";
+import './BbayCSS/fonts.css';
 
 
 const ItemList = () => {
@@ -109,6 +110,7 @@ const ItemList = () => {
                         <NavDropdown.Item href="login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
                         <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        <NavDropdown.Item href="View-History">History</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
@@ -122,7 +124,7 @@ const ItemList = () => {
 
                 </Container>
             </Navbar>
-            <h1 style={{textAlign: "center"}}>Item List</h1>
+            <h1 className={"text-center freeline-font"}>Item List</h1>
             <table className={"table table-hover table-striped"} aria-label={"Items table"}>
                 
                 <thead>

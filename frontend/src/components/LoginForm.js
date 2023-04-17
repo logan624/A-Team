@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import AuthContext from "./AuthContext";
+import './BbayCSS/fonts.css';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -107,7 +108,7 @@ function LoginForm() {
         </Container>
       </Navbar>
 
-      <h1 className={'text-center'}>Login</h1>
+      <h1 className={'text-center freeline-font'}>Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="username">
           <Form.Label>Username:</Form.Label>

@@ -10,6 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { yupResolver } from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
+import './BbayCSS/fonts.css';
 
 
 const EditAccountDetails = () => {
@@ -116,6 +117,7 @@ const EditAccountDetails = () => {
                 <NavDropdown title="User Account Management" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="login">Login</NavDropdown.Item>
                 <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
+                <NavDropdown.Item href="View-History">History</NavDropdown.Item>
                 </NavDropdown>
             </Nav>
             <Nav>
@@ -131,7 +133,7 @@ const EditAccountDetails = () => {
         
     </Navbar>
     <Container>
-      <h1 className={"text-center"}>Edit Account Details</h1>
+      <h1 className={"text-center freeline-font"}>Edit Account Details</h1>
       <Form onSubmit={handleSubmit(handleUpdate)} noValidate>
         <Form.Group controlId="description">
           <Form.Label>Description:</Form.Label>

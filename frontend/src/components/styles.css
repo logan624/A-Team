@@ -1,0 +1,12 @@
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .spacer {
+    width: 20px;
+  }
+  

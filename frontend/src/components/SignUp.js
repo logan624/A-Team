@@ -9,6 +9,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import './BbayCSS/fonts.css';
 
 const AddUser = () => {
     const [Username, setUsername] = useState('');
@@ -29,14 +30,32 @@ const AddUser = () => {
     //const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'});
 
     const validationSchema = yup.object().shape({
-        Username: yup.string().required("Username is required"),
-        Firstname: yup.string().required("Firstname is required"),
-        Lastname: yup.string().required("Lastname is required"),
+      Username: yup
+      .string()
+      .required("Username is required")
+      .matches(
+        /^[a-zA-Z0-9_]+$/,
+        "Username can only contain letters, numbers, and underscores"
+      ),
+        Firstname: yup
+        .string()
+          .required("Firstname is required")
+          .matches(/^[a-zA-Z]+$/, "Firstname can only contain letters"),
+        Lastname: yup
+          .string()
+          .required("Lastname is required")
+      .matches(/^[a-zA-Z]+$/, "Lastname can only contain letters"),
         Password: yup
           .string()
           .required("Password is required")
           .min(8, "Password must be at least 8 characters"),
-        BirthDate: yup.string().required("BirthDate is required"),
+        BirthDate: yup
+        .string()
+          .required("BirthDate is required")
+          .matches(
+            /^\d{4}-\d{2}-\d{2}$/,
+            "BirthDate must be in the format YYYY-MM-DD"
+        ),
         Email: yup
           .string()
           .email("Invalid email format")
@@ -47,7 +66,17 @@ const AddUser = () => {
           .string()
           .required("Phone number is required")
           .matches(/^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/, "Invalid phone number format"),
-        Address: yup.string().required("Address is required"),
+          Address: yup
+          .string()
+          .required("Address is required")
+          .test(
+            "not_lat_long",
+            "Address cannot be latitude and longitude coordinates",
+            (value) => {
+              const latLongRegex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+              return !latLongRegex.test(value);
+            }
+          ),
       });
     
       const {
@@ -128,7 +157,7 @@ const AddUser = () => {
                 </Container>
             </Navbar>
             <form onSubmit={handleSubmit(saveUser)} className={"col-md-6 mx-auto"}>
-                <h1 className={"text-center"}>Sign Up</h1>
+            <h1 className="text-center freeline-font"></h1>
                 <hr/>
                 <Form.Label>Enter a Username:</Form.Label>
                 <input type={"text"} className={"form-control"} id={"Username"} name={"Username"}

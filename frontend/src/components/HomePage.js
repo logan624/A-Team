@@ -96,6 +96,7 @@ const HomePage = () => {
                         <NavDropdown.Item href="login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
                         <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        <NavDropdown.Item href="View-History">History</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
@@ -105,7 +106,15 @@ const HomePage = () => {
                     &nbsp;
                     </Nav>
                     </Navbar.Collapse>
-                    <button onClick={logout}  className="btn btn-secondary">Logout</button>
+                    <button
+                        onClick={() => {
+                            logout();
+                            navigate('/login');
+                        }}
+                        className="btn btn-secondary"
+                        >
+                        Logout
+                    </button>
                 </Container>
             </Navbar>
             <h1 style={{marginLeft:"17%", marginRight:"17%", fontSize:"200%", marginTop:".4em", color:"DarkSlateGrey"}}>

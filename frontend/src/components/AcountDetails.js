@@ -9,6 +9,8 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import AuthContext  from "./AuthContext";
+import './BbayCSS/fonts.css';
+
 
 const AccountDetails = () => {
   const [user, setUser] = useState({});
@@ -131,6 +133,7 @@ const validateUserPassword = () => {
                         <NavDropdown.Item href="login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
                         <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        <NavDropdown.Item href="View-History">History</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
@@ -145,7 +148,7 @@ const validateUserPassword = () => {
                 </Container>
             </Navbar>
             <Container>
-        <h1 className="text-center my-4">Account Details</h1>
+        <h1 className="text-center my-4 freeline-font">Account Details</h1>
         <Card>
           <Card.Header>Username</Card.Header>
           <Card.Body>

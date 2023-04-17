@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import AuthContext from "./AuthContext";
+import './BbayCSS/fonts.css';
 
 const AddItem = () => {
     const [item_name, setItemName] = useState('');
@@ -83,6 +84,7 @@ const AddItem = () => {
                         <NavDropdown.Item href="login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="signup">Sign Up</NavDropdown.Item>
                         <NavDropdown.Item href="Account">Account Details</NavDropdown.Item>
+                        <NavDropdown.Item href="View-History">History</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
@@ -103,7 +105,7 @@ const AddItem = () => {
             rules = {[{  max:10, message: "length should be less then 10 letters!"}]}/>
             <Input placeholder="Username"/>
             <Form.Item/> */}
-                <h1 className={"text-center"}>Add Item</h1>
+                <h1 className={"text-center freeline-font"}>Add Item</h1>
                 <hr/>
                 <input type={"text"} className={"form-control"} id={"item_name"} name={"item_name"}
                 {...register('item_name', {
